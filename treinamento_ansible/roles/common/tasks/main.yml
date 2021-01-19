@@ -1,0 +1,47 @@
+---
+
+# Gerenciamento de pacotes e atualização de SO
+
+- name: Atualizacao do Sistema Operacional
+  yum: 
+    name: '*'
+    state: latest 
+    #update_cache: yes
+
+- name: instalacao de pacotes
+  yum:
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages:
+      - net-tools
+      - vim
+      - epel-release*
+
+- name: Configurando Timezone
+  file: 
+    src: /usr/share/zoneinfo/America/Sao_Paulo 
+    dest: /etc/localtime 
+    state: link 
+    force: yes
+
+- name: Copiando arquivo com o FILE
+  copy:
+    src: etc.tgz
+    dest: /opt/etc.tgz
+
+- name: Gerando um lista dinamica
+  template:
+    src: motd.default
+    dest: /etc/motd
+    force: yes
+    owner: root
+    group: root
+
+- name: Instalando Nginx
+  yum:
+    name: nginx
+    state: latest
+  notify: Reiniciando nginx
+
+...

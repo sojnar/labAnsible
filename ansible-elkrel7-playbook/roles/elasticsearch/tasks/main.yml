@@ -1,0 +1,44 @@
+---
+#
+# Instatalando Elasticsearch
+#
+
+- name: Limpando regras de Firewall
+  systemd:
+     name: firewalld
+     state: stopped
+     enabled: no
+     
+- name: Alterando estado do SELinux para permissive
+  shell:
+     cmd: setenforce 0
+    
+- name: Configurando arquivo elaticsearch.yml
+  template: 
+     src: selinux.default
+     dest: /etc/sysconfig/selinux
+
+- name: Configurando Repositorio
+  template: 
+     src: elasticsearch.repo.default 
+     dest: /etc/yum.repos.d/elasticsearch.repo
+
+- name: Instalando elaticsearch
+  yum: 
+     name: elasticsearch
+     state: latest
+
+- name: Configurando arquivo elaticsearch.yml
+  template: 
+     src: elasticsearch.yml.default
+     dest: /etc/elasticsearch/elasticsearch.yml
+
+- name: Daemon Reload elasticsearch
+  systemd:
+     daemon_reload: yes
+
+- name: Habilitando Daemon elasticsearch
+  systemd:
+     name: elasticsearch
+     state: restarted
+     enabled: yes    

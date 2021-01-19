@@ -1,0 +1,11 @@
+
+# inicializacao playbook
+
+- hosts: all
+  remote_user: ranjos
+  become_method: sudo
+  become_user: root
+  become: yes
+  roles:
+    #- common
+    - update

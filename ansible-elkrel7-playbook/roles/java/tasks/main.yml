@@ -1,0 +1,11 @@
+---
+#
+# Installing Java 8
+#
+
+# Add the Java repo
+
+- name: Instalando java 8
+  yum: name=java-1.8.0-openjdk-devel state=present
+  
+

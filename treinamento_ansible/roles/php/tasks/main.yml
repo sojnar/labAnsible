@@ -1,0 +1,10 @@
+---
+
+# Gerenciamento de pacotes e atualização de SO
+
+- name: Atualizacao do Sistema Operacional
+  yum: 
+    name: 'php'
+    state: latest 
+    update_cache: yes
+...

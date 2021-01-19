@@ -1,0 +1,17 @@
+---
+
+# Gerenciamento de pacotes e atualização de SO
+
+- name: Atualizacao Sistemas Redhat
+  yum: 
+    name: '*'
+    state: latest 
+    update_cache: yes
+  when: ansible_os_family == "RedHat" 
+
+- name: Atualizacao Sistemas Debian
+  apt:
+    upgrade: 'yes'
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+...

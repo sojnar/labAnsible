@@ -1,0 +1,10 @@
+---
+
+- name: Reiniciando nginx
+  systemd:
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+    name: nginx
+
+...

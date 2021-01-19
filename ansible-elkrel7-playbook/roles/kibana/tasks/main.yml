@@ -1,0 +1,23 @@
+---
+#
+# Instatalando Elasticsearch
+#
+
+
+- name: Instalando kibana
+  yum: 
+     name: kibana
+     state: latest
+
+- name: Updating the config file to allow outside access
+  lineinfile:
+     destfile: /etc/kibana/kibana.yml
+     regexp: '#server.host:'
+     line: 'server.host: "0.0.0.0"' 
+
+- name: Habilitando Daemon kibana
+  systemd:
+     name: kibana
+     state: restarted
+     enabled: yes 
+
